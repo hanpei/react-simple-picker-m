@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Portal component Slide component 1`] = `
+<CSSTransition
+  classNames={
+    Object {
+      "enter": "enter",
+      "enterActive": "enterActive",
+      "exit": "exit",
+      "exitActive": "exitActive",
+    }
+  }
+  in={false}
+  timeout={200}
+  unmountOnExit={true}
+>
+  <div>
+    slide children
+  </div>
+</CSSTransition>
+`;
+
+exports[`Portal component render 1`] = `
+<React.Fragment>
+  <div>
+    abc
+  </div>
+</React.Fragment>
+`;

@@ -1,0 +1,962 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Picker component life circl 1`] = `
+<Picker
+  itemHeight={33}
+  onScrollChange={[Function]}
+  options={
+    Array [
+      "3",
+      "4",
+      "5",
+      "6",
+    ]
+  }
+  selectedValue="9"
+>
+  <div
+    className="wrap"
+  >
+    <div
+      className="view"
+    />
+    <Indicator
+      height="33px"
+      top="82.5px"
+    >
+      <div
+        className="indicator"
+        style={
+          Object {
+            "height": "33px",
+            "marginTop": "82.5px",
+          }
+        }
+      />
+    </Indicator>
+    <div
+      className="innerWrap"
+    >
+      <Component
+        height="33px"
+        options={
+          Array [
+            "3",
+            "4",
+            "5",
+            "6",
+          ]
+        }
+      >
+        <div
+          key="3"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="3"
+        >
+          3
+        </div>
+        <div
+          key="4"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="4"
+        >
+          4
+        </div>
+        <div
+          key="5"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="5"
+        >
+          5
+        </div>
+        <div
+          key="6"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="6"
+        >
+          6
+        </div>
+      </Component>
+    </div>
+  </div>
+</Picker>
+`;
+
+exports[`Picker component props 1`] = `
+<Picker
+  itemHeight={33}
+  onScrollChange={[Function]}
+  options={
+    Array [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+    ]
+  }
+>
+  <div
+    className="wrap"
+  >
+    <div
+      className="view"
+    />
+    <Indicator
+      height="33px"
+      top="82.5px"
+    >
+      <div
+        className="indicator"
+        style={
+          Object {
+            "height": "33px",
+            "marginTop": "82.5px",
+          }
+        }
+      />
+    </Indicator>
+    <div
+      className="innerWrap"
+    >
+      <Component
+        height="33px"
+        options={
+          Array [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+          ]
+        }
+      >
+        <div
+          key="1"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="1"
+        >
+          1
+        </div>
+        <div
+          key="2"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="2"
+        >
+          2
+        </div>
+        <div
+          key="3"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="3"
+        >
+          3
+        </div>
+        <div
+          key="4"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="4"
+        >
+          4
+        </div>
+        <div
+          key="5"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="5"
+        >
+          5
+        </div>
+        <div
+          key="6"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="6"
+        >
+          6
+        </div>
+        <div
+          key="7"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="7"
+        >
+          7
+        </div>
+        <div
+          key="8"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="8"
+        >
+          8
+        </div>
+        <div
+          key="9"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="9"
+        >
+          9
+        </div>
+        <div
+          key="10"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="10"
+        >
+          10
+        </div>
+      </Component>
+    </div>
+  </div>
+</Picker>
+`;
+
+exports[`Picker component should handle onScrollChange callback 1`] = `
+<Picker
+  itemHeight={33}
+  onScrollChange={[Function]}
+  options={
+    Array [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+    ]
+  }
+  selectedValue="3"
+>
+  <div
+    className="wrap"
+  >
+    <div
+      className="view"
+    />
+    <Indicator
+      height="33px"
+      top="82.5px"
+    >
+      <div
+        className="indicator"
+        style={
+          Object {
+            "height": "33px",
+            "marginTop": "82.5px",
+          }
+        }
+      />
+    </Indicator>
+    <div
+      className="innerWrap"
+    >
+      <Component
+        height="33px"
+        options={
+          Array [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+          ]
+        }
+      >
+        <div
+          key="1"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="1"
+        >
+          1
+        </div>
+        <div
+          key="2"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="2"
+        >
+          2
+        </div>
+        <div
+          key="3"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="3"
+        >
+          3
+        </div>
+        <div
+          key="4"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="4"
+        >
+          4
+        </div>
+        <div
+          key="5"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="5"
+        >
+          5
+        </div>
+        <div
+          key="6"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="6"
+        >
+          6
+        </div>
+        <div
+          key="7"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="7"
+        >
+          7
+        </div>
+        <div
+          key="8"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="8"
+        >
+          8
+        </div>
+        <div
+          key="9"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="9"
+        >
+          9
+        </div>
+        <div
+          key="10"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="10"
+        >
+          10
+        </div>
+      </Component>
+    </div>
+  </div>
+</Picker>
+`;
+
+exports[`Picker component should render 1`] = `
+<Picker
+  itemHeight={33}
+  onScrollChange={[Function]}
+  options={
+    Array [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+    ]
+  }
+  selectedValue="3"
+>
+  <div
+    className="wrap"
+  >
+    <div
+      className="view"
+    />
+    <Indicator
+      height="33px"
+      top="82.5px"
+    >
+      <div
+        className="indicator"
+        style={
+          Object {
+            "height": "33px",
+            "marginTop": "82.5px",
+          }
+        }
+      />
+    </Indicator>
+    <div
+      className="innerWrap"
+    >
+      <Component
+        height="33px"
+        options={
+          Array [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+          ]
+        }
+      >
+        <div
+          key="1"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="1"
+        >
+          1
+        </div>
+        <div
+          key="2"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="2"
+        >
+          2
+        </div>
+        <div
+          key="3"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="3"
+        >
+          3
+        </div>
+        <div
+          key="4"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="4"
+        >
+          4
+        </div>
+        <div
+          key="5"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="5"
+        >
+          5
+        </div>
+        <div
+          key="6"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="6"
+        >
+          6
+        </div>
+        <div
+          key="7"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="7"
+        >
+          7
+        </div>
+        <div
+          key="8"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="8"
+        >
+          8
+        </div>
+        <div
+          key="9"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="9"
+        >
+          9
+        </div>
+        <div
+          key="10"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="10"
+        >
+          10
+        </div>
+      </Component>
+    </div>
+  </div>
+</Picker>
+`;
+
+exports[`Picker component update the selectedIndex, when options change 1`] = `
+<Picker
+  itemHeight={33}
+  onScrollChange={[Function]}
+  options={
+    Array [
+      "3",
+      "4",
+      "5",
+      "6",
+    ]
+  }
+  selectedValue="abc"
+>
+  <div
+    className="wrap"
+  >
+    <div
+      className="view"
+    />
+    <Indicator
+      height="33px"
+      top="82.5px"
+    >
+      <div
+        className="indicator"
+        style={
+          Object {
+            "height": "33px",
+            "marginTop": "82.5px",
+          }
+        }
+      />
+    </Indicator>
+    <div
+      className="innerWrap"
+    >
+      <Component
+        height="33px"
+        options={
+          Array [
+            "3",
+            "4",
+            "5",
+            "6",
+          ]
+        }
+      >
+        <div
+          key="3"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="3"
+        >
+          3
+        </div>
+        <div
+          key="4"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="4"
+        >
+          4
+        </div>
+        <div
+          key="5"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="5"
+        >
+          5
+        </div>
+        <div
+          key="6"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="6"
+        >
+          6
+        </div>
+      </Component>
+    </div>
+  </div>
+</Picker>
+`;
+
+exports[`Picker component update the selectedIndex, when options change 2`] = `
+<Picker
+  itemHeight={33}
+  onScrollChange={[Function]}
+  options={
+    Array [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+    ]
+  }
+  selectedValue="abc"
+>
+  <div
+    className="wrap"
+  >
+    <div
+      className="view"
+    />
+    <Indicator
+      height="33px"
+      top="82.5px"
+    >
+      <div
+        className="indicator"
+        style={
+          Object {
+            "height": "33px",
+            "marginTop": "82.5px",
+          }
+        }
+      />
+    </Indicator>
+    <div
+      className="innerWrap"
+    >
+      <Component
+        height="33px"
+        options={
+          Array [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+          ]
+        }
+      >
+        <div
+          key="1"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="1"
+        >
+          1
+        </div>
+        <div
+          key="2"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="2"
+        >
+          2
+        </div>
+        <div
+          key="3"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="3"
+        >
+          3
+        </div>
+        <div
+          key="4"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="4"
+        >
+          4
+        </div>
+        <div
+          key="5"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="5"
+        >
+          5
+        </div>
+        <div
+          key="6"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="6"
+        >
+          6
+        </div>
+        <div
+          key="7"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="7"
+        >
+          7
+        </div>
+        <div
+          key="8"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="8"
+        >
+          8
+        </div>
+        <div
+          key="9"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="9"
+        >
+          9
+        </div>
+        <div
+          key="10"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="10"
+        >
+          10
+        </div>
+        <div
+          key="11"
+          style={
+            Object {
+              "height": "33px",
+              "lineHeight": "33px",
+            }
+          }
+          value="11"
+        >
+          11
+        </div>
+      </Component>
+    </div>
+  </div>
+</Picker>
+`;

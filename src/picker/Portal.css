@@ -1,0 +1,29 @@
+.layer {
+  position: fixed;
+  background: #000;
+  opacity: 0.3;
+  z-index: 9;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.enter {
+  opacity: 0.01;
+  transform: scale(0.9) translateY(100%);
+}
+.enterActive {
+  opacity: 1;
+  transform: scale(1) translateY(0%);
+  transition: all 200ms ease-out;
+}
+.exit {
+  opacity: 1;
+  transform: scale(1) translateY(0%);
+}
+.exitActive {
+  opacity: 0.01;
+  transform: scale(0.9) translateY(100%);
+  transition: all 200ms ease-out;
+}

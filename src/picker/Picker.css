@@ -1,0 +1,35 @@
+.wrap {
+  position: relative;
+  z-index: 999;
+  height: 200px;
+  width: 100%;
+  background: #fff;
+  overflow: hidden;
+}
+
+.innerWrap {
+  text-align: center;
+  padding: 0 20px;
+}
+
+.view {
+  position: absolute;
+  z-index: 1;
+  background: linear-gradient(
+    #f7f7f7,
+    rgba(245, 245, 245, 0) 51%,
+    rgba(245, 245, 245, 0) 49%,
+    #f7f7f7
+  );
+  height: 200px;
+  width: 100%;
+}
+
+.indicator {
+  box-sizing: border-box;
+  z-index: 9;
+  width: 100%;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  position: absolute;
+}

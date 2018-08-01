@@ -87,10 +87,16 @@
     "type": "git",
     "url": "git+https://github.com/hanpei/react-simple-picker-m.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "hanpei",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/hanpei/react-simple-picker-m/issues"
   },
-  "homepage": "https://github.com/hanpei/react-simple-picker-m#readme"
+  "homepage": "https://github.com/hanpei/react-simple-picker-m#readme",
+  "keywords": [
+    "react",
+    "component",
+    "date-picker",
+    "picker"
+  ]
 }

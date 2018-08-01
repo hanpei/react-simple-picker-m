@@ -5,12 +5,17 @@ react mobile picker, datepicker
 [![codecov](https://codecov.io/gh/hanpei/react-simple-picker-m/branch/master/graph/badge.svg)](https://codecov.io/gh/hanpei/react-simple-picker-m)
 
 
+## Demo online
+* 只支持touch相关事件
+* chrome -> dev tools -> toggle device toolbar
+[Demo](https://hanpei.github.io/react-simple-picker-m/)
+
 ---
 ## scroller.js
 
 `class Scroller`
 * transition + transform 模拟滚动
-* 模拟滚动惯性
+* 模拟滚动惯性
 
 `class PickerScroller`
 * 继承`Scroller`
@@ -30,7 +35,7 @@ react mobile picker, datepicker
 
 ## examples
 
-```
+``` javascript
 import React, { Component } from 'react';
 import { render} from 'react-dom';
 import { DatePicker, Portal } from '../../src';

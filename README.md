@@ -1,6 +1,8 @@
 # react-simple-picker-m
 react mobile picker, datepicker
-
+---
+[![Build Status](https://travis-ci.org/hanpei/react-simple-picker-m.svg?branch=master)](https://travis-ci.org/hanpei/react-simple-picker-m)
+[![codecov](https://codecov.io/gh/hanpei/react-simple-picker-m/branch/master/graph/badge.svg)](https://codecov.io/gh/hanpei/react-simple-picker-m)
 
 
 ---

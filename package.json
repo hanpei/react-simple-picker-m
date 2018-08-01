@@ -1,0 +1,84 @@
+{
+  "name": "react-simple-picker-m",
+  "version": "1.0.0",
+  "description": "react mobile picker, datepicker",
+  "main": "lib/index.js",
+  "scripts": {
+    "start": "webpack-dev-server --config config/webpack.config.js --mode development",
+    "lib": "webpack --config config/webpack.config.lib.js --mode production",
+    "test": "jest --env=jsdom",
+    "coverage": "jest --env=jsdom --coverage"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/picker/*.{js,jsx,mjs}"
+    ],
+    "testMatch": [
+      "<rootDir>/**/__tests__/**/*.{js,jsx,mjs}",
+      "<rootDir>/**/?(*.)(spec|test).{js,jsx,mjs}"
+    ],
+    "testEnvironment": "node",
+    "testURL": "http://localhost",
+    "transform": {
+      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
+      "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
+    ],
+    "moduleNameMapper": {
+      "^react-native$": "react-native-web",
+      "\\.(css|less)$": "identity-obj-proxy"
+    },
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "moduleFileExtensions": [
+      "web.js",
+      "js",
+      "json",
+      "web.jsx",
+      "jsx",
+      "node",
+      "mjs"
+    ],
+    "setupTestFrameworkScriptFile": "<rootDir>/config/jest/setupTests.js"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "react-transition-group": "^2.4.0",
+    "react-test-renderer": "^16.4.1",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.4.2",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "css-loader": "^1.0.0",
+    "enzyme": "^3.3.0",
+    "enzyme-to-json": "^3.3.4",
+    "html-webpack-plugin": "^3.2.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^23.4.2",
+    "postcss-cssnext": "^3.1.0",
+    "postcss-loader": "^2.1.6",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.16.3",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hanpei/react-simple-picker-m.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hanpei/react-simple-picker-m/issues"
+  },
+  "homepage": "https://github.com/hanpei/react-simple-picker-m#readme"
+}

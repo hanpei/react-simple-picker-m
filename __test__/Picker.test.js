@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import Picker from '../Picker';
+import Picker from '../src/picker/Picker';
 
 const pickerOptions = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 const pickerOptions2 = [ '3', '4', '5', '6'];

@@ -1,4 +1,4 @@
-import { Scroller, Velocity, PickerScroller } from '../scroller';
+import { Scroller, Velocity, PickerScroller } from '../src/picker/scroller';
 import {
   eventTrigger,
   createStartTouchEventObject,
@@ -257,8 +257,7 @@ describe('Velocity', () => {
 
   it('velocity', () => {
     // 两次时间戳的差用于计算速度
-    Date.now = jest
-      .genMockFunction()
+    Date.now = jest.fn()
       .mockReturnValueOnce(0)
       .mockReturnValueOnce(100);
     const recordSpy = jest.spyOn(Velocity.prototype, 'record');

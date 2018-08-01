@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Portal, { Slide } from '../Portal';
+import Portal, { Slide } from '../src/picker/Portal';
 
 describe('Portal component', () => {
   it('render', () => {

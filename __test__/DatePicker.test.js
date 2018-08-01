@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import DatePicker from '../DatePicker';
+import DatePicker from '../src/picker/DatePicker';
 
 // const mockFn = jest.fn().mockImplementation((value) => value);
 
@@ -130,6 +130,5 @@ describe('Picker component', () => {
 
     component.find('button').at(0).simulate('click')
     expect(component.props().onToggle).toBeCalled()
-    expect(component).toMatchSnapshot();
   });
 });

@@ -3,7 +3,34 @@
 exports[`Picker component life circl 1`] = `
 <Picker
   itemHeight={33}
-  onScrollChange={[Function]}
+  onScrollChange={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          "4",
+        ],
+        Array [
+          Object {
+            "index": 3,
+            "value": "6",
+          },
+        ],
+      ],
+      "results": Array [
+        Object {
+          "isThrow": false,
+          "value": "4",
+        },
+        Object {
+          "isThrow": false,
+          "value": Object {
+            "index": 3,
+            "value": "6",
+          },
+        },
+      ],
+    }
+  }
   options={
     Array [
       "3",
@@ -37,7 +64,7 @@ exports[`Picker component life circl 1`] = `
     <div
       className="innerWrap"
     >
-      <Component
+      <Items
         height="33px"
         options={
           Array [
@@ -96,7 +123,7 @@ exports[`Picker component life circl 1`] = `
         >
           6
         </div>
-      </Component>
+      </Items>
     </div>
   </div>
 </Picker>
@@ -105,7 +132,21 @@ exports[`Picker component life circl 1`] = `
 exports[`Picker component props 1`] = `
 <Picker
   itemHeight={33}
-  onScrollChange={[Function]}
+  onScrollChange={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          "4",
+        ],
+      ],
+      "results": Array [
+        Object {
+          "isThrow": false,
+          "value": "4",
+        },
+      ],
+    }
+  }
   options={
     Array [
       "1",
@@ -144,7 +185,7 @@ exports[`Picker component props 1`] = `
     <div
       className="innerWrap"
     >
-      <Component
+      <Items
         height="33px"
         options={
           Array [
@@ -281,7 +322,7 @@ exports[`Picker component props 1`] = `
         >
           10
         </div>
-      </Component>
+      </Items>
     </div>
   </div>
 </Picker>
@@ -290,7 +331,21 @@ exports[`Picker component props 1`] = `
 exports[`Picker component should handle onScrollChange callback 1`] = `
 <Picker
   itemHeight={33}
-  onScrollChange={[Function]}
+  onScrollChange={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          "4",
+        ],
+      ],
+      "results": Array [
+        Object {
+          "isThrow": false,
+          "value": "4",
+        },
+      ],
+    }
+  }
   options={
     Array [
       "1",
@@ -330,7 +385,7 @@ exports[`Picker component should handle onScrollChange callback 1`] = `
     <div
       className="innerWrap"
     >
-      <Component
+      <Items
         height="33px"
         options={
           Array [
@@ -467,7 +522,7 @@ exports[`Picker component should handle onScrollChange callback 1`] = `
         >
           10
         </div>
-      </Component>
+      </Items>
     </div>
   </div>
 </Picker>
@@ -476,7 +531,7 @@ exports[`Picker component should handle onScrollChange callback 1`] = `
 exports[`Picker component should render 1`] = `
 <Picker
   itemHeight={33}
-  onScrollChange={[Function]}
+  onScrollChange={[MockFunction]}
   options={
     Array [
       "1",
@@ -516,7 +571,7 @@ exports[`Picker component should render 1`] = `
     <div
       className="innerWrap"
     >
-      <Component
+      <Items
         height="33px"
         options={
           Array [
@@ -653,7 +708,7 @@ exports[`Picker component should render 1`] = `
         >
           10
         </div>
-      </Component>
+      </Items>
     </div>
   </div>
 </Picker>
@@ -662,7 +717,47 @@ exports[`Picker component should render 1`] = `
 exports[`Picker component update the selectedIndex, when options change 1`] = `
 <Picker
   itemHeight={33}
-  onScrollChange={[Function]}
+  onScrollChange={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          "4",
+        ],
+        Array [
+          Object {
+            "index": 3,
+            "value": "6",
+          },
+        ],
+        Array [
+          Object {
+            "index": 0,
+            "value": "3",
+          },
+        ],
+      ],
+      "results": Array [
+        Object {
+          "isThrow": false,
+          "value": "4",
+        },
+        Object {
+          "isThrow": false,
+          "value": Object {
+            "index": 3,
+            "value": "6",
+          },
+        },
+        Object {
+          "isThrow": false,
+          "value": Object {
+            "index": 0,
+            "value": "3",
+          },
+        },
+      ],
+    }
+  }
   options={
     Array [
       "3",
@@ -696,7 +791,7 @@ exports[`Picker component update the selectedIndex, when options change 1`] = `
     <div
       className="innerWrap"
     >
-      <Component
+      <Items
         height="33px"
         options={
           Array [
@@ -755,7 +850,7 @@ exports[`Picker component update the selectedIndex, when options change 1`] = `
         >
           6
         </div>
-      </Component>
+      </Items>
     </div>
   </div>
 </Picker>
@@ -764,7 +859,60 @@ exports[`Picker component update the selectedIndex, when options change 1`] = `
 exports[`Picker component update the selectedIndex, when options change 2`] = `
 <Picker
   itemHeight={33}
-  onScrollChange={[Function]}
+  onScrollChange={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          "4",
+        ],
+        Array [
+          Object {
+            "index": 3,
+            "value": "6",
+          },
+        ],
+        Array [
+          Object {
+            "index": 0,
+            "value": "3",
+          },
+        ],
+        Array [
+          Object {
+            "index": 2,
+            "value": "3",
+          },
+        ],
+      ],
+      "results": Array [
+        Object {
+          "isThrow": false,
+          "value": "4",
+        },
+        Object {
+          "isThrow": false,
+          "value": Object {
+            "index": 3,
+            "value": "6",
+          },
+        },
+        Object {
+          "isThrow": false,
+          "value": Object {
+            "index": 0,
+            "value": "3",
+          },
+        },
+        Object {
+          "isThrow": false,
+          "value": Object {
+            "index": 2,
+            "value": "3",
+          },
+        },
+      ],
+    }
+  }
   options={
     Array [
       "1",
@@ -805,7 +953,7 @@ exports[`Picker component update the selectedIndex, when options change 2`] = `
     <div
       className="innerWrap"
     >
-      <Component
+      <Items
         height="33px"
         options={
           Array [
@@ -955,7 +1103,7 @@ exports[`Picker component update the selectedIndex, when options change 2`] = `
         >
           11
         </div>
-      </Component>
+      </Items>
     </div>
   </div>
 </Picker>

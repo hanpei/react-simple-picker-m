@@ -1,4 +1,4 @@
-import { paddingLeft, formatTimestamp } from '../utils';
+import { paddingLeft, formatTimestamp } from '../src/picker/utils';
 
 describe('utils', () => {
   it('paddingLeft', () => {

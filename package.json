@@ -17,6 +17,8 @@
     "collectCoverageFrom": [
       "src/picker/*.{js,jsx,mjs}"
     ],
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true,
     "testMatch": [
       "<rootDir>/**/__tests__/**/*.{js,jsx,mjs}",
       "<rootDir>/**/?(*.)(spec|test).{js,jsx,mjs}"

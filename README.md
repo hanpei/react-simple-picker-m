@@ -8,10 +8,14 @@ react mobile picker, datepicker
 ## Demo online
 * 只支持touch相关事件
 * chrome -> dev tools -> toggle device toolbar
-[Demo](https://hanpei.github.io/react-simple-picker-m/)
+* [Demo online](https://hanpei.github.io/react-simple-picker-m/)
 
 ---
-## scroller.js
+
+## 说明
+> 参考 https://github.com/react-component/m-picker
+
+### scroller.js
 
 `class Scroller`
 * transition + transform 模拟滚动
@@ -22,19 +26,26 @@ react mobile picker, datepicker
 * 滚动分级停止
 * 滚动到指定index
 
-## Picker.js
+### Picker.js
 * 单个滚动选择器
 
-## DatePicker.js
+### DatePicker.js
 * 3个`Picker`组成
 * 年月日数据处理
 
-## Portal.js
-* 提供`createPortal`
+### Portal.js
+* `createPortal` 弹出层
 * 提供`Slide`动画
+
+### css 相关
+* css module 
+* 目前不支持自定义
+
+---
 
 ## examples
 
+### datepicker
 ``` javascript
 import React, { Component } from 'react';
 import { render} from 'react-dom';

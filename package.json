@@ -11,7 +11,7 @@
     "coverage": "jest --env=jsdom --coverage",
     "build-demo": "webpack --config config/webpack.config.js --mode production",
     "deploy": "gh-pages -d examples/dist",
-    "publish-demo": "npm run build && npm run deploy"
+    "publish-demo": "npm run build-demo && npm run deploy"
   },
   "files": [
     "dist",

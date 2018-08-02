@@ -1,67 +1,113 @@
 # react-simple-picker-m
-react mobile picker, datepicker
----
+
+## react mobile picker, datepicker
+
 [![Build Status](https://travis-ci.org/hanpei/react-simple-picker-m.svg?branch=master)](https://travis-ci.org/hanpei/react-simple-picker-m)
 [![codecov](https://codecov.io/gh/hanpei/react-simple-picker-m/branch/master/graph/badge.svg)](https://codecov.io/gh/hanpei/react-simple-picker-m)
 
-
 ## Demo online
-* 只支持touch相关事件
-* chrome -> dev tools -> toggle device toolbar
-* [Demo online](https://hanpei.github.io/react-simple-picker-m/)
+
+- 只支持 touch 相关事件
+- chrome -> dev tools -> toggle device toolbar
+- [Demo online](https://hanpei.github.io/react-simple-picker-m/)
+
+---
+
+## Install
+
+```
+npm install --save-dev react-simple-picker-m
+```
+
+``` js
+import { Picker, DatePicker, Portal } from 'react-simple-picker-m'
+```
 
 ---
 
 ## 说明
+
 > 参考 https://github.com/react-component/m-picker
 
 ### scroller.js
 
 `class Scroller`
-* transition + transform 模拟滚动
-* 模拟滚动惯性
+
+- transition + transform  模拟滚动
+- 模拟滚动惯性 
 
 `class PickerScroller`
-* 继承`Scroller`
-* 滚动分级停止
-* 滚动到指定index
+
+- 继承`Scroller`
+- 滚动分级停止
+- 滚动到指定 index
 
 ### Picker.js
-* 单个滚动选择器
+
+- 单个滚动选择器
 
 ### DatePicker.js
-* 3个`Picker`组成
-* 年月日数据处理
+
+- 3 个`Picker`组成
+- 年月日数据处理
 
 ### Portal.js
-* `createPortal` 弹出层
-* 提供`Slide`动画
+
+- `createPortal` 弹出层
+- 提供`Slide`动画
 
 ### css 相关
-* css module 
-* 目前不支持自定义
+
+- css module
+- 目前不支持自定义
 
 ---
 
 ## examples
 
-### datepicker
-``` javascript
+### picker
+```js
 import React, { Component } from 'react';
-import { render} from 'react-dom';
+import { render } from 'react-dom';
+import { Picker} from '../../src';
+...
+
+state = { selectedValue: 'blue'}
+
+<Picker
+  options={[
+    'red',
+    'blue',
+    'yellow',
+    'green',
+    'black',
+    'white',
+    'orange',
+    'brown'
+  ]}
+  onScrollChange={(result) => {
+    console.log(result)
+    this.setState({selectedValue: result.value})
+  }}
+  selectedValue={this.state.selectedValue}
+/>
+...
+
+```
+
+### datepicker
+
+```javascript
+import React, { Component } from 'react';
+import { render } from 'react-dom';
 import { DatePicker, Portal } from '../../src';
 
 class DatePickerContainer extends Component {
   state = {
-    selectedValue: '15',
     selectedDate: ''
   };
-  handleScrollChange = (result) => {
-    this.setState({ selectedValue: result.value });
-    console.log(this.state);
-  };
 
-  handleSelect = (value) => {
+  handleSelect = value => {
     console.log(value);
     this.setState({
       selectedDate: value
@@ -104,5 +150,5 @@ class DatePickerContainer extends Component {
   }
 }
 
-render(<DatePickerContainer />, document.getElementById("root"));
+render(<DatePickerContainer />, document.getElementById('root'));
 ```

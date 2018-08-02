@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
-import { render} from 'react-dom';
-import { DatePicker, Portal } from '../../src';
+import { render } from 'react-dom';
+import { DatePicker, Portal, Picker } from '../../src';
+import styles from './index.css';
 
 class DatePickerContainer extends Component {
   state = {
-    selectedValue: '15',
+    selectedValue: 'blue',
     selectedDate: ''
   };
-  handleScrollChange = (result) => {
+  handleScrollChange = result => {
     this.setState({ selectedValue: result.value });
     console.log(this.state);
   };
 
-  handleSelect = (value) => {
+  handleSelect = value => {
     console.log(value);
     this.setState({
       selectedDate: value
@@ -21,12 +22,35 @@ class DatePickerContainer extends Component {
 
   render() {
     return (
-      <div>
-        {this.state.selectedDate ? this.state.selectedDate : '请选择日期'}
+      <div className={styles.container}>
+        <h3>Picker</h3>
+        <p>selected: {this.state.selectedValue}</p>
+        <Picker
+          options={[
+            'red',
+            'blue',
+            'yellow',
+            'green',
+            'black',
+            'white',
+            'orange',
+            'brown'
+          ]}
+          onScrollChange={(result) => {
+            console.log(result)
+            this.setState({selectedValue: result.value})
+          }}
+          selectedValue={this.state.selectedValue}
+        />
+        <br />
+        <br />
+        <h3>DatePicker</h3>
+        <p>selected: {this.state.selectedDate ? this.state.selectedDate : 'none'}</p>
         <br />
         <Portal
           component={({ onToggle }) => (
             <DatePicker
+              fontSize="20px"
               onToggle={onToggle}
               onConfirm={this.handleSelect}
               onValueChanged={this.handleSelect}
@@ -46,7 +70,7 @@ class DatePickerContainer extends Component {
               }}
               onClick={onToggle}
             >
-              datepicker
+              click
             </button>
           )}
         </Portal>
@@ -55,4 +79,4 @@ class DatePickerContainer extends Component {
   }
 }
 
-render(<DatePickerContainer />, document.getElementById("root"));
+render(<DatePickerContainer />, document.getElementById('root'));

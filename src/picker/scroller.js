@@ -11,6 +11,7 @@ export class Scroller {
     this.startY = 0;
     this.isMoving = false;
     this.velocity = new Velocity();
+    this.animating = false; // use to stop elastic scrolling when touchstart
     this.init();
   }
 
@@ -42,15 +43,18 @@ export class Scroller {
     el.removeEventListener('touchcancel', this.onFinish);
     el.removeEventListener('transitionend', this.onEnd);
   }
-  onStart = (e) => {
+  onStart = e => {
     e.preventDefault();
     const y = e.touches[0].screenY;
+    if (this.animating) {
+      this.stopScrolling();
+    }
 
     this.isMoving = true;
     this.startY = y;
     this.lastY = this.scrollY;
   };
-  onMove = (e) => {
+  onMove = e => {
     e.preventDefault();
     const y = e.touches[0].screenY;
 
@@ -74,6 +78,10 @@ export class Scroller {
   onEnd = () => {
     this.setTransition(this.contentRef.style, '');
     this.onScrollComplete();
+  };
+  stopScrolling() {
+    this.setTransition(this.contentRef.style, '');
+    this.animating = false;
   }
   scrollTo(_x, y, time = 0.3) {
     if (this.scrollY !== y) {
@@ -83,6 +91,7 @@ export class Scroller {
           this.contentRef.style,
           `cubic-bezier(0,0,0.2,1.15) ${time}s`
         );
+        this.animating = true;
       }
       this.setTransform(this.contentRef.style, `translate3d(0, ${-y}px, 0)`);
     }

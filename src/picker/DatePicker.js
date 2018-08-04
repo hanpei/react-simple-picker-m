@@ -8,11 +8,11 @@ class DatePicker extends Component {
   static propTypes = {
     fontSize: PropTypes.string,
     defaultDate: PropTypes.string,
-    onToggle: PropTypes.func,
-    onConfirm: PropTypes.func,
     from: PropTypes.string,
     to: PropTypes.string,
-    onValueChanged: PropTypes.func,
+    onToggle: PropTypes.func.isRequired,
+    onConfirm: PropTypes.func.isRequired,
+    onValueChanged: PropTypes.func.isRequired,
     children: PropTypes.node
   };
   static defaultProps = {
@@ -20,9 +20,6 @@ class DatePicker extends Component {
     defaultDate: '2000-01-01',
     from: '1900-01-01',
     to: '2100-12-31',
-    onToggle: () => {},
-    onConfirm: () => {},
-    onValueChanged: () => {}
   };
   static DEFAULT_DATE = '2000-01-01';
   static DEFAULT_FROM = '1900-01-01';

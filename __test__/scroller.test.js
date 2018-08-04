@@ -121,6 +121,22 @@ describe('Scroller', () => {
     expect(lastY).toBe(-1);
     expect(scrollY).toBe(-1);
   });
+  it('touch events: touchstart, when is scrolling', () => {
+    const scroller = new Scroller(content);
+    scroller.removeEvent(wrapper);
+    const startSpy = jest.spyOn(scroller, 'onStart');
+    const stopScrollingSpy = jest.spyOn(scroller, 'stopScrolling');
+
+    scroller.bindEvent(scroller.wrapRef);
+    scroller.animating = true
+    eventTrigger(
+      wrapper,
+      'touchstart',
+      createStartTouchEventObject({ x: 0, y: 50 })
+    );
+
+    expect(stopScrollingSpy).toBeCalled()
+  });
 
   it('touch events: touchmove, when isMoving is true', () => {
     const scroller = new Scroller(content);

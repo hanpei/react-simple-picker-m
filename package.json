@@ -1,6 +1,6 @@
 {
   "name": "react-simple-picker-m",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "react mobile picker, datepicker",
   "main": "lib/react-simple-picker-m.js",
   "scripts": {

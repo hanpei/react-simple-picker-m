@@ -20,9 +20,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader
-          },
+          'style-loader',
           {
             loader: require.resolve('css-loader'),
             options: {
@@ -46,7 +44,7 @@ module.exports = {
   },
   plugins: [
     // new BundleAnalyzerPlugin(),
-    new MiniCssExtractPlugin({ filename: 'react-simple-picker-m.css' })
+    // new MiniCssExtractPlugin({ filename: 'react-simple-picker-m.css' })
   ],
   externals: {
     react: {

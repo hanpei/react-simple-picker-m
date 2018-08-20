@@ -1,32 +1,38 @@
 /* 
 based on https://github.com/react-component/m-picker/blob/master/src/Picker.tsx
 */
-// TODO: 设置动画function, duration, cancel animation
 export class Scroller {
-  constructor(el) {
+  constructor(el, direction) {
     this.contentRef = el;
     this.wrapRef = el.parentNode;
-    this.scrollY = -1;
-    this.lastY = 0;
-    this.startY = 0;
+    this.scrollPos = -1;
+    this.lastPos = 0;
+    this.startPos = 0;
     this.isMoving = false;
     this.velocity = new Velocity();
     this.animating = false; // use to stop elastic scrolling when touchstart
+    this.direction = direction || 'y';
     this.init();
   }
 
   init() {
     this.bindEvent(this.wrapRef);
-    this.getEleHeight(this.wrapRef, this.contentRef);
+    this.getEleSize(this.wrapRef, this.contentRef);
   }
 
   update() {
-    this.getEleHeight(this.wrapRef, this.contentRef);
+    this.getEleSize(this.wrapRef, this.contentRef);
   }
 
-  getEleHeight(wrapRef, contentRef) {
-    this.contentHeight = contentRef.getBoundingClientRect().height;
-    this.wrapHeight = wrapRef.getBoundingClientRect().height;
+  getEleSize(wrapRef, contentRef) {
+    console.log(this.direction);
+    if (this.direction === 'x') {
+      this.contentHeight = contentRef.getBoundingClientRect().width;
+      this.wrapHeight = wrapRef.getBoundingClientRect().width;
+    } else {
+      this.contentHeight = contentRef.getBoundingClientRect().height;
+      this.wrapHeight = wrapRef.getBoundingClientRect().height;
+    }
   }
 
   bindEvent(el) {
@@ -45,35 +51,60 @@ export class Scroller {
   }
   onStart = e => {
     e.preventDefault();
-    const y = e.touches[0].screenY;
+    let pos = 0;
+    if (this.direction === 'x') {
+      pos = e.touches[0].screenX;
+    } else {
+      pos = e.touches[0].screenY;
+    }
     if (this.animating) {
       this.stopScrolling();
     }
 
     this.isMoving = true;
-    this.startY = y;
-    this.lastY = this.scrollY;
+    this.startPos = pos;
+    this.lastPos = this.scrollPos;
   };
   onMove = e => {
     e.preventDefault();
-    const y = e.touches[0].screenY;
+    let pos = 0;
+    if (this.direction === 'x') {
+      pos = e.touches[0].screenX;
+    } else {
+      pos = e.touches[0].screenY;
+    }
 
     if (!this.isMoving) {
       return;
     }
-    this.scrollY = this.lastY - y + this.startY;
-    this.velocity.record(this.scrollY);
-    this.setTransform(
-      this.contentRef.style,
-      `translate3d(0, ${-this.scrollY}px, 0)`
-    );
+    this.scrollPos = this.lastPos - pos + this.startPos;
+    this.velocity.record(this.scrollPos);
+    if (this.direction === 'x') {
+      this.setTransform(
+        this.contentRef.style,
+        `translate3d(${-this.scrollPos}px, 0, 0)`
+      );
+    } else {
+      this.setTransform(
+        this.contentRef.style,
+        `translate3d(0, ${-this.scrollPos}px, 0)`
+      );
+    }
   };
   onFinish = () => {
     this.isMoving = false;
-    const targetY = this.scrollY;
+    const targetPos = this.scrollPos;
     const maxHeight = this.contentHeight - this.wrapHeight;
-    const { y, t } = this.velocity.getElasticDistance(targetY, maxHeight, 0.3);
-    this.scrollTo(0, y, t);
+    const { y, t } = this.velocity.getElasticDistance(
+      targetPos,
+      maxHeight,
+      0.3
+    );
+    if (this.direction === 'x') {
+      this.scrollTo(y, 0, t);
+    } else {
+      this.scrollTo(0, y, t);
+    }
   };
   onEnd = () => {
     this.setTransition(this.contentRef.style, '');
@@ -83,17 +114,31 @@ export class Scroller {
     this.setTransition(this.contentRef.style, '');
     this.animating = false;
   }
-  scrollTo(_x, y, time = 0.3) {
-    if (this.scrollY !== y) {
-      this.scrollY = y;
-      if (time) {
-        this.setTransition(
-          this.contentRef.style,
-          `cubic-bezier(0,0,0.2,1.15) ${time}s`
-        );
-        this.animating = true;
+  scrollTo(x, y, time = 0.3) {
+    if (this.direction === 'x') {
+      if (this.scrollPos !== x) {
+        this.scrollPos = x;
+        if (time) {
+          this.setTransition(
+            this.contentRef.style,
+            `cubic-bezier(0,0,0.2,1.15) ${time}s`
+          );
+          this.animating = true;
+        }
+        this.setTransform(this.contentRef.style, `translate3d(${-x}px, 0, 0)`);
       }
-      this.setTransform(this.contentRef.style, `translate3d(0, ${-y}px, 0)`);
+    } else {
+      if (this.scrollPos !== y) {
+        this.scrollPos = y;
+        if (time) {
+          this.setTransition(
+            this.contentRef.style,
+            `cubic-bezier(0,0,0.2,1.15) ${time}s`
+          );
+          this.animating = true;
+        }
+        this.setTransform(this.contentRef.style, `translate3d(0, ${-y}px, 0)`);
+      }
     }
   }
   setTransform(nodeStyle, value) {
@@ -132,9 +177,9 @@ export class Velocity {
     }
     return this._velocity;
   }
-  getElasticDistance(targetY, maxHeight, delay = 0.3) {
+  getElasticDistance(targetPos, maxHeight, delay = 0.3) {
     let t = delay;
-    let y = targetY;
+    let y = targetPos;
     const v = this.getVelocity(y);
     if (v) {
       y = v * 160 + y;
@@ -151,14 +196,15 @@ export class Velocity {
 }
 
 export class PickerScroller extends Scroller {
-  constructor({ el, itemHeight, onScrollChange, selectedIndex }) {
-    super(el);
+  constructor({ el, itemHeight, onScrollChange, selectedIndex, direction }) {
     const defaultItemHeight =
+    super(el, direction);
       el.childNodes.length > 0 ? el.childNodes[0].offsetHeight : 20;
     this.itemHeight = itemHeight || defaultItemHeight;
     this.itemLength = this.contentRef.childNodes.length;
     this.onScrollChange = onScrollChange;
     this.selectedIndex = selectedIndex || 0;
+    this.direction = direction || 'y';
     this.init();
   }
 
@@ -178,7 +224,7 @@ export class PickerScroller extends Scroller {
   }
 
   getScrollValue() {
-    return this.scrollY;
+    return this.scrollPos;
   }
 
   getItemIndex(y, itemHeight, itemLength) {
@@ -190,30 +236,56 @@ export class PickerScroller extends Scroller {
   // padding填充滚动区域
   setScrollContentHeight() {
     let num = Math.floor(this.wrapHeight / this.itemHeight);
+    console.log(this.wrapHeight);
+    console.log(this.itemHeight);
     num = (num - 1) / 2;
-    this.contentRef.style.paddingTop = `${this.itemHeight * num}px`;
-    this.contentRef.style.paddingBottom = `${this.itemHeight * num}px`;
+    if (this.direction === 'x') {
+      num = Math.round(num)
+      this.contentRef.style.paddingLeft = `${this.itemHeight * (num)}px`;
+      this.contentRef.style.paddingRight = `${this.itemHeight * (num)}px`;
+    } else {
+      this.contentRef.style.paddingTop = `${this.itemHeight * num}px`;
+      this.contentRef.style.paddingBottom = `${this.itemHeight * num}px`;
+    }
   }
 
   // overide scrollTo，根据itemHeight停止
-  scrollTo(_x, y, time = 0.3) {
-    let targetY = y;
-    if (targetY % this.itemHeight !== 0) {
-      const length = Math.round(targetY / this.itemHeight);
-      targetY = length * this.itemHeight;
+  scrollTo(x, y, time = 0.3) {
+    if (this.direction === 'x') {
+      let targetPos = x;
+      if (targetPos % this.itemHeight !== 0) {
+        const length = Math.round(targetPos / this.itemHeight);
+        targetPos = length * this.itemHeight;
+      }
+      super.scrollTo(targetPos, y, time);
+    } else {
+      let targetPos = y;
+      if (targetPos % this.itemHeight !== 0) {
+        const length = Math.round(targetPos / this.itemHeight);
+        targetPos = length * this.itemHeight;
+      }
+      super.scrollTo(x, targetPos, time);
     }
-    super.scrollTo(_x, targetY, time);
   }
 
   scrollToByIndex(index) {
-    const y = this.itemHeight * index;
-    this.scrollTo(0, y, 0);
+    if (this.direction === 'x') {
+      const x = this.itemHeight * index;
+      this.scrollTo(x, 0, 0);
+    } else {
+      const y = this.itemHeight * index;
+      this.scrollTo(0, y, 0);
+    }
   }
 
   // overide onScrollComplete
   onScrollComplete() {
-    const scrollY = this.getScrollValue();
-    const index = this.getItemIndex(scrollY, this.itemHeight, this.itemLength);
+    const scrollPos = this.getScrollValue();
+    const index = this.getItemIndex(
+      scrollPos,
+      this.itemHeight,
+      this.itemLength
+    );
     typeof this.onScrollChange === 'function' && this.onScrollChange(index);
   }
 }

@@ -5,6 +5,7 @@
 
 h2 {
   text-align: center;
+  margin-top: 20px;
 }
 
 button {
@@ -13,4 +14,12 @@ button {
 
 .container {
   text-align: center;
+}
+
+.container ul {
+  margin: 40px 0;
+}
+
+.container ul li {
+  margin: 10px 0;
 }

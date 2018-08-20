@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { DatePicker, Portal, Picker } from '../../src';
 import styles from './index.css';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import PickerDemo from './PickerDemo';
+import DatePickerDemo from './DatePickerDemo';
+import HorizontalPickerDemo from './HorizontalPickerDemo';
+import Home from './Home';
 
 class DatePickerContainer extends Component {
   state = {
@@ -23,57 +28,14 @@ class DatePickerContainer extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <h3>Picker</h3>
-        <p>selected: {this.state.selectedValue}</p>
-        <Picker
-          options={[
-            'red',
-            'blue',
-            'yellow',
-            'green',
-            'black',
-            'white',
-            'orange',
-            'brown'
-          ]}
-          onScrollChange={(result) => {
-            console.log(result)
-            this.setState({selectedValue: result.value})
-          }}
-          selectedValue={this.state.selectedValue}
-        />
-        <br />
-        <br />
-        <h3>DatePicker</h3>
-        <p>selected: {this.state.selectedDate ? this.state.selectedDate : 'none'}</p>
-        <br />
-        <Portal
-          component={({ onToggle }) => (
-            <DatePicker
-              fontSize="20px"
-              onToggle={onToggle}
-              onConfirm={this.handleSelect}
-              onValueChanged={this.handleSelect}
-              defaultDate={this.state.selectedDate}
-              from="1990-02-10"
-              to="2010-08-29"
-            />
-          )}
-        >
-          {({ onToggle }) => (
-            <button
-              style={{
-                border: '1px solid #ddd',
-                padding: '10px 20px',
-                background: '#eee',
-                borderRadius: '10px'
-              }}
-              onClick={onToggle}
-            >
-              click
-            </button>
-          )}
-        </Portal>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/picker" component={PickerDemo} />
+            <Route path="/datepicker" component={DatePickerDemo} />
+            <Route path="/horizontal-picker" component={HorizontalPickerDemo} />
+          </Switch>
+        </Router>
       </div>
     );
   }

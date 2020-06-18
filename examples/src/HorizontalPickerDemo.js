@@ -13,9 +13,9 @@ const data = (() => {
 
 class HorizontalPickerDemo extends Component {
   state = {
-    selectedValue: '1'
+    selectedValue: '1',
   };
-  handleScrollChange = result => {
+  handleScrollChange = (result) => {
     this.setState({ selectedValue: result.value });
     console.log(this.state);
   };
@@ -24,10 +24,12 @@ class HorizontalPickerDemo extends Component {
     return (
       <HorizontalPicker
         options={data}
-        onScrollChange={result => {
+        onScrollChange={(result) => {
           console.log(result);
           this.setState({ selectedValue: result.value });
         }}
+        itemWidth={60}
+        offsetLeft={-20}
         selectedValue={this.state.selectedValue}
       />
     );

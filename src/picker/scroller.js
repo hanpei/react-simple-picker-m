@@ -5,13 +5,14 @@ export class Scroller {
   constructor(el, direction) {
     this.contentRef = el;
     this.wrapRef = el.parentNode;
-    this.scrollPos = -1;
+    this.scrollPos = -1; // 'x'横向scrollX, 'y'纵向scrollY
     this.lastPos = 0;
     this.startPos = 0;
     this.isMoving = false;
     this.velocity = new Velocity();
     this.animating = false; // use to stop elastic scrolling when touchstart
     this.direction = direction || 'y';
+    this.isDrag = false; //给外面组件区分点击和拖拽
     this.init();
   }
 
@@ -25,7 +26,7 @@ export class Scroller {
   }
 
   getEleSize(wrapRef, contentRef) {
-    console.log(this.direction);
+    // console.log(this.direction);
     if (this.direction === 'x') {
       this.contentHeight = contentRef.getBoundingClientRect().width;
       this.wrapHeight = wrapRef.getBoundingClientRect().width;
@@ -41,6 +42,10 @@ export class Scroller {
     el.addEventListener('touchend', this.onFinish);
     el.addEventListener('touchcancel', this.onFinish);
     el.addEventListener('transitionend', this.onEnd);
+    el.addEventListener('mousedown', this.onStart);
+    el.addEventListener('mousemove', this.onMove);
+    el.addEventListener('wheel', this.onWheel);
+    el.addEventListener('mouseup', this.onFinish);
   }
   removeEvent(el) {
     el.removeEventListener('touchstart', this.onStart);
@@ -48,14 +53,18 @@ export class Scroller {
     el.removeEventListener('touchend', this.onFinish);
     el.removeEventListener('touchcancel', this.onFinish);
     el.removeEventListener('transitionend', this.onEnd);
+    el.addEventListener('mousedown', this.onStart);
+    el.addEventListener('mousemove', this.onMove);
+    el.addEventListener('wheel', this.onWheel);
+    el.addEventListener('mouseup', this.onFinish);
   }
-  onStart = e => {
+  onStart = (e) => {
     e.preventDefault();
     let pos = 0;
     if (this.direction === 'x') {
-      pos = e.touches[0].screenX;
+      pos = e.touches ? e.touches[0].screenX : e.screenX;
     } else {
-      pos = e.touches[0].screenY;
+      pos = e.touches ? e.touches[0].screenY : e.screenY;
     }
     if (this.animating) {
       this.stopScrolling();
@@ -65,19 +74,42 @@ export class Scroller {
     this.startPos = pos;
     this.lastPos = this.scrollPos;
   };
-  onMove = e => {
+  onMove = (e) => {
     e.preventDefault();
+    if (this.isMoving) {
+      this.draw(e);
+    }
+  };
+  onWheel = (e) => {
+    // TODO:
+    // console.log(e.type);
+    // console.log(e.deltaY);˝
+    // console.log(e.clientY);
+  };
+  draw = (e) => {
     let pos = 0;
     if (this.direction === 'x') {
-      pos = e.touches[0].screenX;
+      pos = e.touches ? e.touches[0].screenX : e.screenX;
     } else {
-      pos = e.touches[0].screenY;
+      pos = e.touches ? e.touches[0].screenY : e.screenY;
     }
 
     if (!this.isMoving) {
       return;
     }
     this.scrollPos = this.lastPos - pos + this.startPos;
+
+    // 边界拖拽阻力
+    // FIXME:
+    // const delta =
+    //   this.contentHeight - this.wrapHeight > 0
+    //     ? this.contentHeight - this.wrapHeight
+    //     : 0;
+    // if (this.scrollPos < -60) {
+    //   this.scrollPos = -60;
+    // } else if (this.scrollPos > delta + 60) {
+    //   this.scrollPos = delta + 60;
+    // }
     this.velocity.record(this.scrollPos);
     if (this.direction === 'x') {
       this.setTransform(
@@ -91,10 +123,21 @@ export class Scroller {
       );
     }
   };
+
   onFinish = () => {
+    if (Math.abs(this.scrollPos - this.lastPos) > 20) {
+      this.isDrag = true;
+    } else {
+      this.isDrag = false;
+    }
+
     this.isMoving = false;
     const targetPos = this.scrollPos;
-    const maxHeight = this.contentHeight - this.wrapHeight;
+    //内容区域小于外部显示区域，取0， 不能减成负的
+    const maxHeight =
+      this.contentHeight - this.wrapHeight > 0
+        ? this.contentHeight - this.wrapHeight
+        : 0;
     const { y, t } = this.velocity.getElasticDistance(
       targetPos,
       maxHeight,
@@ -153,7 +196,7 @@ export class Scroller {
 }
 
 export class Velocity {
-  constructor(minInterval = 30, maxInterval = 100) {
+  constructor(minInterval = 50, maxInterval = 100) {
     this.minInterval = minInterval;
     this.maxInterval = maxInterval;
     this._time = 0;
@@ -182,7 +225,7 @@ export class Velocity {
     let y = targetPos;
     const v = this.getVelocity(y);
     if (v) {
-      y = v * 160 + y;
+      y = v * 80 + y;
       t = Math.abs(v) * 0.1;
       t = t < delay ? delay : t;
     }
@@ -236,13 +279,13 @@ export class PickerScroller extends Scroller {
   // padding填充滚动区域
   setScrollContentHeight() {
     let num = Math.floor(this.wrapHeight / this.itemHeight);
-    console.log(this.wrapHeight);
-    console.log(this.itemHeight);
+    // console.log(this.wrapHeight);
+    // console.log(this.itemHeight);
     num = (num - 1) / 2;
     if (this.direction === 'x') {
-      num = Math.round(num)
-      this.contentRef.style.paddingLeft = `${this.itemHeight * (num)}px`;
-      this.contentRef.style.paddingRight = `${this.itemHeight * (num)}px`;
+      num = Math.round(num);
+      this.contentRef.style.paddingLeft = `${this.itemHeight * num}px`;
+      this.contentRef.style.paddingRight = `${this.itemHeight * num}px`;
     } else {
       this.contentRef.style.paddingTop = `${this.itemHeight * num}px`;
       this.contentRef.style.paddingBottom = `${this.itemHeight * num}px`;

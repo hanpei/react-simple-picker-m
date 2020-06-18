@@ -3,7 +3,7 @@ import {
   eventTrigger,
   createStartTouchEventObject,
   createMoveTouchEventObject,
-  mockGetBoundingClientRect
+  mockGetBoundingClientRect,
 } from './utils';
 
 function createEl() {
@@ -41,11 +41,14 @@ describe('Scroller', () => {
 
     expect(node.contentRef).toEqual(content);
     expect(node.wrapRef).toEqual(wrapper);
-    expect(node.scrollY).toBe(-1);
-    expect(node.lastY).toBe(0);
-    expect(node.startY).toBe(0);
+    expect(node.scrollPos).toBe(-1);
+    expect(node.lastPos).toBe(0);
+    expect(node.startPos).toBe(0);
     expect(node.isMoving).toBeFalsy();
     expect(node.velocity).toBeInstanceOf(Velocity);
+    expect(node.animatinmg).toBeFalsy();
+    expect(node.direction).toEqual('y');
+    expect(node.isDrag).toBeFalsy;
   });
 
   it('method: init', () => {
@@ -61,7 +64,7 @@ describe('Scroller', () => {
 
   it('method: update, it should update the dom size', () => {
     const spy = jest.spyOn(Scroller.prototype, 'update');
-    const spy2 = jest.spyOn(Scroller.prototype, 'getEleHeight');
+    const spy2 = jest.spyOn(Scroller.prototype, 'getEleSize');
     const scroller = new Scroller(content);
 
     expect(spy).not.toBeCalled();
@@ -82,10 +85,20 @@ describe('Scroller', () => {
 
     const evt = {
       preventDefault: jest.fn(),
-      touches: [{ screenY: 123 }]
+      touches: [{ screenY: 123 }],
     };
     scroller.onStart(evt);
-    expect(scroller.startY).toBe(123);
+    expect(scroller.startPos).toBe(123);
+  });
+  it('method onStart: direction = x', () => {
+    const scroller = new Scroller(content, 'x');
+
+    const evt = {
+      preventDefault: jest.fn(),
+      touches: [{ screenX: 456 }],
+    };
+    scroller.onStart(evt);
+    expect(scroller.startPos).toBe(456);
   });
 
   it('method onMove', () => {
@@ -93,11 +106,21 @@ describe('Scroller', () => {
 
     const evt = {
       preventDefault: jest.fn(),
-      touches: [{ screenY: 123 }]
+      touches: [{ screenPos: 123 }],
     };
     scroller.isMoving = true;
     scroller.onMove(evt);
-    expect(scroller.scrollY).toBe(-123);
+  });
+
+  it('method onMove: direction = x', () => {
+    const scroller = new Scroller(content, 'x');
+
+    const evt = {
+      preventDefault: jest.fn(),
+      touches: [{ screenPos: 456 }],
+    };
+    scroller.isMoving = true;
+    scroller.onMove(evt);
   });
 
   it('touch events: touchstart', () => {
@@ -113,13 +136,13 @@ describe('Scroller', () => {
       createStartTouchEventObject({ x: 0, y: 50 })
     );
 
-    const { startY, lastY, scrollY, isMoving } = scroller;
+    const { startPos, lastPos, scrollPos, isMoving } = scroller;
 
     expect(startSpy).toBeCalled();
     expect(isMoving).toBeTruthy();
-    expect(startY).toBe(50);
-    expect(lastY).toBe(-1);
-    expect(scrollY).toBe(-1);
+    expect(startPos).toBe(50);
+    expect(lastPos).toBe(-1);
+    expect(scrollPos).toBe(-1);
   });
   it('touch events: touchstart, when is scrolling', () => {
     const scroller = new Scroller(content);
@@ -128,14 +151,14 @@ describe('Scroller', () => {
     const stopScrollingSpy = jest.spyOn(scroller, 'stopScrolling');
 
     scroller.bindEvent(scroller.wrapRef);
-    scroller.animating = true
+    scroller.animating = true;
     eventTrigger(
       wrapper,
       'touchstart',
       createStartTouchEventObject({ x: 0, y: 50 })
     );
 
-    expect(stopScrollingSpy).toBeCalled()
+    expect(stopScrollingSpy).toBeCalled();
   });
 
   it('touch events: touchmove, when isMoving is true', () => {
@@ -158,12 +181,12 @@ describe('Scroller', () => {
       createMoveTouchEventObject({ x: 0, y: 150 })
     );
 
-    const { startY, lastY, scrollY, isMoving } = scroller;
+    const { startPos, lastPos, scrollPos, isMoving } = scroller;
     expect(isMoving).toBeTruthy();
-    expect(scrollY).toBe(lastY - 150 + startY);
+    expect(scrollPos).toBe(lastPos - 150 + startPos);
     expect(startSpy).toBeCalled();
     expect(moveSpy).toBeCalled();
-    expect(recordSpy).toBeCalledWith(scrollY);
+    expect(recordSpy).toBeCalledWith(scrollPos);
     expect(setTransformSpy).toBeCalled();
     expect(scroller.contentRef.style.transform).toBe(
       'translate3d(0, 151px, 0)'
@@ -183,19 +206,19 @@ describe('Scroller', () => {
       createMoveTouchEventObject({ x: 0, y: 150 })
     );
 
-    const { scrollY, isMoving } = scroller;
+    const { scrollPos, isMoving } = scroller;
     expect(isMoving).toBeFalsy();
-    expect(scrollY).toBe(-1);
+    expect(scrollPos).toBe(-1);
     expect(moveSpy).toBeCalled();
-    expect(recordSpy).not.toBeCalledWith(scrollY);
+    expect(recordSpy).not.toBeCalledWith(scrollPos);
     expect(setTransformSpy).not.toBeCalled();
   });
 
   it('touch events: touchend', () => {
     const scroller = new Scroller(content);
     scroller.removeEvent(wrapper);
+    const scrollToSpy = jest.spyOn(Scroller.prototype, 'scrollTo');
     const endSpy = jest.spyOn(scroller, 'onFinish');
-    const scrollToSpy = jest.spyOn(scroller, 'scrollTo');
     const getElasticDistanceSpy = jest.spyOn(
       scroller.velocity,
       'getElasticDistance'
@@ -213,7 +236,6 @@ describe('Scroller', () => {
     expect(getElasticDistanceSpy).toBeCalled();
     expect(getElasticDistanceSpy).toHaveBeenCalledTimes(1);
     expect(scrollToSpy).toHaveBeenCalledTimes(1);
-    
   });
 
   it('events: transitionEnd', () => {
@@ -223,7 +245,7 @@ describe('Scroller', () => {
     const onScrollCompleteSpy = jest.spyOn(scroller, 'onScrollComplete');
     scroller.bindEvent(wrapper);
 
-    eventTrigger( wrapper, 'transitionend' );
+    eventTrigger(wrapper, 'transitionend');
     expect(onScrollCompleteSpy).toHaveBeenCalledTimes(1);
   });
 
@@ -232,13 +254,13 @@ describe('Scroller', () => {
     const { content } = createEl();
 
     const scrollToSpy = jest.spyOn(Scroller.prototype, 'scrollTo');
-    const setTransformSpy = jest.spyOn(Scroller.prototype, 'setTransform');
     const scroller = new Scroller(content);
+    const setTransformSpy = jest.spyOn(Scroller.prototype, 'setTransform');
 
     scroller.scrollTo(0, 100);
     expect(scrollToSpy).toBeCalledWith(0, 100);
     expect(setTransformSpy).toBeCalled();
-    expect(scroller.scrollY).toBe(100);
+    expect(scroller.scrollPos).toBe(100);
     expect(scroller.contentRef.style.transform).toBe(
       'translate3d(0, -100px, 0)'
     );
@@ -249,13 +271,13 @@ describe('Scroller', () => {
     scroller.scrollTo(0, -200, 10);
     expect(scrollToSpy).toBeCalledWith(0, -200, 10);
     expect(setTransformSpy).toBeCalled();
-    expect(scroller.scrollY).toBe(-200);
+    expect(scroller.scrollPos).toBe(-200);
     expect(scroller.contentRef.style.transform).toBe(
       'translate3d(0, 200px, 0)'
     );
     expect(scroller.contentRef.style.transition).toBe(
       'cubic-bezier(0,0,0.2,1.15) 10s'
-    );    
+    );
   });
 });
 
@@ -273,9 +295,7 @@ describe('Velocity', () => {
 
   it('velocity', () => {
     // 两次时间戳的差用于计算速度
-    Date.now = jest.fn()
-      .mockReturnValueOnce(0)
-      .mockReturnValueOnce(100);
+    Date.now = jest.fn().mockReturnValueOnce(0).mockReturnValueOnce(100);
     const recordSpy = jest.spyOn(Velocity.prototype, 'record');
     const getVelocitySpy = jest.spyOn(Velocity.prototype, 'getVelocity');
     const getElasticDistanceSpy = jest.spyOn(
@@ -296,26 +316,26 @@ describe('Velocity', () => {
       'touchmove',
       createMoveTouchEventObject({ x: 0, y: 120 })
     );
-    expect(recordSpy).toBeCalledWith(scroller.scrollY);
+    expect(recordSpy).toBeCalledWith(scroller.scrollPos);
     eventTrigger(
       wrapper,
       'touchmove',
       createMoveTouchEventObject({ x: 0, y: 220 })
     );
-    expect(recordSpy).toBeCalledWith(scroller.scrollY);
+    expect(recordSpy).toBeCalledWith(scroller.scrollPos);
 
-    // onFinish调用scrollTo后scrollY会被重置, 记录一下用于计算
-    const lastScrollY = scroller.scrollY;
+    // onFinish调用scrollTo后scrollPos会被重置, 记录一下用于计算
+    const lastScrollPos = scroller.scrollPos;
 
     eventTrigger(
       wrapper,
       'touchend',
       createMoveTouchEventObject({ x: 0, y: 220 })
     );
-    expect(getVelocitySpy).toBeCalledWith(lastScrollY);
+    expect(getVelocitySpy).toBeCalledWith(lastScrollPos);
     const height = scroller.contentHeight - scroller.wrapHeight;
 
-    expect(getElasticDistanceSpy).toBeCalledWith(lastScrollY, height, 0.3);
+    expect(getElasticDistanceSpy).toBeCalledWith(lastScrollPos, height, 0.3);
   });
 
   it('getElasticDistance ', () => {
@@ -323,12 +343,12 @@ describe('Velocity', () => {
 
     const { y, t } = v.getElasticDistance(1000, 200);
     expect(y).toBe(200);
-    expect(t).toBe(0.3)
+    expect(t).toBe(0.3);
 
     const { y: y2, t: t2 } = v.getElasticDistance(100, 200, 3);
     expect(y2).toBe(100);
     expect(t2).toBe(3);
-    
+
     // t < delay
     v.getVelocity = jest.fn().mockReturnValue(10);
     const { y: y3, t: t3 } = v.getElasticDistance(180, 200, 5);
@@ -368,7 +388,7 @@ describe('PickerScroller', () => {
       el: content,
       itemHeight: 50,
       onScrollChange: mockFn,
-      selectedIndex: 3
+      selectedIndex: 3,
     };
     const node = new PickerScroller(props);
     expect(node).toBeInstanceOf(Scroller);
@@ -379,7 +399,7 @@ describe('PickerScroller', () => {
 
     const props2 = {
       el: content,
-      onScrollChange: mockFn
+      onScrollChange: mockFn,
     };
 
     const node2 = new PickerScroller(props2);
@@ -389,10 +409,10 @@ describe('PickerScroller', () => {
     expect(node2.selectedIndex).toBe(0);
     expect(node2.onScrollChange).toBe(mockFn);
 
-    content.innerHTML = ''
+    content.innerHTML = '';
     const props3 = {
       el: content,
-      onScrollChange: mockFn
+      onScrollChange: mockFn,
     };
 
     const node3 = new PickerScroller(props3);
@@ -407,7 +427,7 @@ describe('PickerScroller', () => {
       el: content,
       itemHeight: 50,
       onScrollChange: mockFn,
-      selectedIndex: 3
+      selectedIndex: 3,
     };
     const superInitSpy = jest.spyOn(Scroller.prototype, 'init');
     const initSpy = jest.spyOn(PickerScroller.prototype, 'init');
@@ -435,7 +455,7 @@ describe('PickerScroller', () => {
       el: content,
       itemHeight: 50,
       onScrollChange: mockFn,
-      selectedIndex: 3
+      selectedIndex: 3,
     };
     const updateSpy = jest.spyOn(PickerScroller.prototype, 'update');
     const superUpdateSpy = jest.spyOn(Scroller.prototype, 'update');
@@ -456,7 +476,7 @@ describe('PickerScroller', () => {
       el: content,
       itemHeight: 50,
       onScrollChange: mockFn,
-      selectedIndex: 3
+      selectedIndex: 3,
     };
     const node = new PickerScroller(props);
 
@@ -467,13 +487,13 @@ describe('PickerScroller', () => {
     expect(node.contentRef.style.paddingBottom).toBe(`${result}px`);
   });
 
-  it('scrollTo', () => {
+  it('scrollTo step by step', () => {
     const mockFn = jest.fn();
     const props = {
       el: content,
       itemHeight: 50,
       onScrollChange: mockFn,
-      selectedIndex: 3
+      selectedIndex: 3,
     };
     const scrollToSpy = jest.spyOn(Scroller.prototype, 'scrollTo');
     const node = new PickerScroller(props);
@@ -485,6 +505,7 @@ describe('PickerScroller', () => {
       targetY = length * node.itemHeight;
     }
     expect(scrollToSpy).toBeCalledWith(0, targetY, 0.3);
+
     node.scrollTo(0, 300, 3);
     let targetY2 = 300;
     if (targetY2 % node.itemHeight !== 0) {
@@ -500,7 +521,7 @@ describe('PickerScroller', () => {
       el: content,
       itemHeight: 50,
       onScrollChange: mockFn,
-      selectedIndex: 3
+      selectedIndex: 3,
     };
     const picker = new PickerScroller(props);
     picker.removeEvent(wrapper);
@@ -523,7 +544,7 @@ describe('PickerScroller', () => {
       el: content,
       itemHeight: 50,
       onScrollChange: mockFn,
-      selectedIndex: 3
+      selectedIndex: 3,
     };
     const picker = new PickerScroller(props);
     picker.removeEvent(wrapper);
@@ -542,11 +563,11 @@ describe('PickerScroller', () => {
       createMoveTouchEventObject({ x: 0, y: 150 })
     );
 
-    const { startY, lastY, scrollY, isMoving } = picker;
+    const { startPos, lastPos, scrollPos, isMoving } = picker;
     expect(isMoving).toBeTruthy();
-    expect(startY).toBe(0);
-    expect(lastY).toBe(50 * 3);
-    expect(scrollY).toBe(lastY - 150 + startY);
+    expect(startPos).toBe(0);
+    expect(lastPos).toBe(50 * 3);
+    expect(scrollPos).toBe(lastPos - 150 + startPos);
     expect(startSpy).toBeCalled();
     expect(moveSpy).toBeCalled();
   });
@@ -557,7 +578,7 @@ describe('PickerScroller', () => {
       el: content,
       itemHeight: 50,
       onScrollChange: mockFn,
-      selectedIndex: 4
+      selectedIndex: 4,
     };
     const picker = new PickerScroller(props);
     picker.removeEvent(wrapper);

@@ -7,7 +7,7 @@
     "start": "webpack-dev-server --config config/webpack.config.js --mode development",
     "lib": "webpack --config config/webpack.config.lib.js --mode production",
     "test": "jest --env=jsdom",
-    "test-watch": "jest --env=jsdom --watch",
+    "test-watch": "jest --env=jsdom --watch ",
     "codecov": "codecov",
     "coverage": "jest --env=jsdom --coverage",
     "build-demo": "webpack --config config/webpack.config.js --mode production",
@@ -19,11 +19,12 @@
     "lib"
   ],
   "jest": {
+    "bail": true,
     "collectCoverageFrom": [
       "src/picker/*.{js,jsx,mjs}"
     ],
     "coverageDirectory": "./coverage/",
-    "collectCoverage": true,
+    "collectCoverage": false,
     "testMatch": [
       "<rootDir>/**/__tests__/**/*.{js,jsx,mjs}",
       "<rootDir>/**/?(*.)(spec|test).{js,jsx,mjs}"

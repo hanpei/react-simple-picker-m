@@ -8,26 +8,31 @@ class HorizontalPicker extends Component {
     options: PropTypes.arrayOf(PropTypes.string).isRequired,
     onScrollChange: PropTypes.func.isRequired,
     selectedValue: PropTypes.string,
-    itemHeight: PropTypes.number
+    itemWidth: PropTypes.number,
+    offsetLeft: PropTypes.number,
   };
+
   static defaultProps = {
-    itemHeight: 60
+    // picker宽度
+    itemWidth: 60,
+    // 为了中间对齐的偏移
+    offsetLeft: 0,
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      selectedValue: this.props.selectedValue
+      selectedValue: this.props.selectedValue,
     };
   }
 
   componentDidMount() {
     this.pickerEvent = new PickerScroller({
       el: this.pickerNode,
-      itemHeight: 60,
+      itemHeight: this.props.itemWidth, // PickerScroller竖转横，命名没改
       selectedIndex: this.getIndexByValue(),
       onScrollChange: this.handleScrollChange,
-      direction: 'x'
+      direction: 'x',
     });
   }
 
@@ -44,13 +49,15 @@ class HorizontalPicker extends Component {
   }
 
   render() {
-    const width = `${this.props.itemHeight}px`;
+    const width = `${this.props.itemWidth}px`;
+    const left = `${this.props.offsetLeft}px`;
     return (
       <div className={styles.wrap}>
-        <Indicator width={width}/>
+        <Indicator width={width} />
         <div
-          ref={node => (this.pickerNode = node)}
+          ref={(node) => (this.pickerNode = node)}
           className={styles.innerWrap}
+          style={{ left }}
         >
           <Items options={this.props.options} width={width} />
         </div>
@@ -67,7 +74,7 @@ Indicator.propTypes = {
 };
 
 export const Items = ({ options, width }) =>
-  options.map(value => (
+  options.map((value) => (
     <div
       className={styles.item}
       style={{ width: width }}

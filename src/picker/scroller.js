@@ -197,8 +197,8 @@ export class Velocity {
 
 export class PickerScroller extends Scroller {
   constructor({ el, itemHeight, onScrollChange, selectedIndex, direction }) {
-    const defaultItemHeight =
     super(el, direction);
+    const defaultItemHeight =
       el.childNodes.length > 0 ? el.childNodes[0].offsetHeight : 20;
     this.itemHeight = itemHeight || defaultItemHeight;
     this.itemLength = this.contentRef.childNodes.length;

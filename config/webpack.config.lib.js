@@ -1,6 +1,4 @@
 /*** webpack.config.js ***/
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 module.exports = {
@@ -43,7 +41,6 @@ module.exports = {
     ]
   },
   plugins: [
-    // new BundleAnalyzerPlugin(),
     // new MiniCssExtractPlugin({ filename: 'react-simple-picker-m.css' })
   ],
   externals: {

@@ -21,9 +21,20 @@ exports[`Portal component Slide component 1`] = `
 `;
 
 exports[`Portal component render 1`] = `
-<React.Fragment>
+<Fragment>
   <div>
     abc
   </div>
-</React.Fragment>
+  <Portal
+    containerInfo={<div />}
+  >
+    <Slide
+      in={false}
+    >
+      <div>
+        portal component
+      </div>
+    </Slide>
+  </Portal>
+</Fragment>
 `;

@@ -18,11 +18,11 @@ exports[`Picker component life circl 1`] = `
       ],
       "results": Array [
         Object {
-          "isThrow": false,
+          "type": "return",
           "value": "4",
         },
         Object {
-          "isThrow": false,
+          "type": "return",
           "value": Object {
             "index": 3,
             "value": "6",
@@ -141,7 +141,7 @@ exports[`Picker component props 1`] = `
       ],
       "results": Array [
         Object {
-          "isThrow": false,
+          "type": "return",
           "value": "4",
         },
       ],
@@ -340,7 +340,7 @@ exports[`Picker component should handle onScrollChange callback 1`] = `
       ],
       "results": Array [
         Object {
-          "isThrow": false,
+          "type": "return",
           "value": "4",
         },
       ],
@@ -738,18 +738,18 @@ exports[`Picker component update the selectedIndex, when options change 1`] = `
       ],
       "results": Array [
         Object {
-          "isThrow": false,
+          "type": "return",
           "value": "4",
         },
         Object {
-          "isThrow": false,
+          "type": "return",
           "value": Object {
             "index": 3,
             "value": "6",
           },
         },
         Object {
-          "isThrow": false,
+          "type": "return",
           "value": Object {
             "index": 0,
             "value": "3",
@@ -886,25 +886,25 @@ exports[`Picker component update the selectedIndex, when options change 2`] = `
       ],
       "results": Array [
         Object {
-          "isThrow": false,
+          "type": "return",
           "value": "4",
         },
         Object {
-          "isThrow": false,
+          "type": "return",
           "value": Object {
             "index": 3,
             "value": "6",
           },
         },
         Object {
-          "isThrow": false,
+          "type": "return",
           "value": Object {
             "index": 0,
             "value": "3",
           },
         },
         Object {
-          "isThrow": false,
+          "type": "return",
           "value": Object {
             "index": 2,
             "value": "3",

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { DatePicker, Portal, Picker } from '../../src';
 import styles from './index.css';
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import PickerDemo from './PickerDemo';
 import DatePickerDemo from './DatePickerDemo';
 import HorizontalPickerDemo from './HorizontalPickerDemo';

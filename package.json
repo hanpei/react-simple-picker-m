@@ -55,7 +55,9 @@
       "node",
       "mjs"
     ],
-    "setupFilesAfterEnv": ["<rootDir>/config/jest/setupTests.js"]
+    "setupFilesAfterEnv": [
+      "<rootDir>/config/jest/setupTests.js"
+    ]
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",

@@ -1,10 +1,10 @@
 {
   "name": "react-simple-picker-m",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "react mobile picker, datepicker",
   "main": "lib/react-simple-picker-m.js",
   "scripts": {
-    "start": "webpack-dev-server --config config/webpack.config.js --mode development",
+    "start": "webpack-dev-server --config config/webpack.config.js --mode development --devtool inline-source-map",
     "lib": "webpack --config config/webpack.config.lib.js --mode production",
     "test": "jest --env=jsdom",
     "test-watch": "jest --env=jsdom --watch ",

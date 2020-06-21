@@ -13,52 +13,46 @@ class DatePicker extends Component {
     onToggle: PropTypes.func.isRequired,
     onConfirm: PropTypes.func.isRequired,
     onValueChanged: PropTypes.func.isRequired,
-    children: PropTypes.node
+    children: PropTypes.node,
   };
   static defaultProps = {
     fontSize: '14px',
-    defaultDate: '2000-01-01',
+    selectedDate: '2000-01-01',
     from: '1900-01-01',
     to: '2100-12-31',
   };
-  static DEFAULT_DATE = '2000-01-01';
-  static DEFAULT_FROM = '1900-01-01';
-  static DEFAULT_TO = '2100-12-31';
 
   constructor(props) {
     super(props);
-    this.state = {
-      selectedYear: undefined,
-      selectedMonth: undefined,
-      selectedDay: undefined,
-      year: undefined,
-      month: undefined,
-      day: undefined
-    };
-    this.defaultDate = props.defaultDate || DatePicker.DEFAULT_DATE;
-    this.defaultFrom = props.from || DatePicker.DEFAULT_FROM;
-    this.defaultTo = props.to || DatePicker.DEFAULT_TO;
+    this.initState(props);
+  }
+
+  initState(props) {
+    this.defaultDate = props.defaultDate;
+    this.defaultFrom = props.from;
+    this.defaultTo = props.to;
     [this.minYear, this.minMonth, this.minDay] = this.defaultFrom.split('-');
     [this.maxYear, this.maxMonth, this.maxDay] = this.defaultTo.split('-');
-    this.selectedDateValue = undefined;
-  }
 
-  componentWillMount() {
-    this.init();
+    // 检查默认日期是否在可选日期范围内
+    const finalDefaultDate = this.checkDateRange(
+      this.defaultDate,
+      this.defaultFrom,
+      this.defaultTo
+    );
+    const [selectedYear, selectedMonth, selectedDay] = finalDefaultDate.split(
+      '-'
+    );
+    this.selectedDateValue = `${selectedYear}-${selectedMonth}-${selectedDay}`;
+    this.state = {
+      selectedYear,
+      selectedMonth,
+      selectedDay,
+      year: this.setYear(),
+      month: this.setMonth(selectedYear),
+      day: this.setDay(selectedYear, selectedMonth),
+    };
   }
-
-  // componentDidUpdate(prevProps, prevState) {
-    // const isUpdated = () => {
-    //   return (
-    //     prevState.selectedYear !== this.state.selectedYear ||
-    //     prevState.selectedMonth !== this.state.selectedMonth ||
-    //     prevState.selectedDay !== this.state.selectedDay
-    //   );
-    // };
-    // if (isUpdated()) {
-    //   this.changeSelectedValue(this.state);
-    // }
-  // }
 
   shouldComponentUpdate(nextProps, nextState) {
     // 对比year/month/day数组内容是否完全相同
@@ -83,30 +77,30 @@ class DatePicker extends Component {
     return defaultDate;
   }
 
-  init() {
-    // 检查默认日期是否在可选日期范围内
-    const finalDefaultDate = this.checkDateRange(
-      this.defaultDate,
-      this.defaultFrom,
-      this.defaultTo
-    );
-    const [selectedYear, selectedMonth, selectedDay] = finalDefaultDate.split(
-      '-'
-    );
+  // init() {
+  //   // 检查默认日期是否在可选日期范围内
+  //   const finalDefaultDate = this.checkDateRange(
+  //     this.defaultDate,
+  //     this.defaultFrom,
+  //     this.defaultTo
+  //   );
+  //   const [selectedYear, selectedMonth, selectedDay] = finalDefaultDate.split(
+  //     '-'
+  //   );
 
-    this.setState({ selectedYear, selectedMonth, selectedDay });
-    this.setYear();
-    this.setMonth(selectedYear);
-    this.setDay(selectedYear, selectedMonth);
-    this.selectedDateValue = `${selectedYear}-${selectedMonth}-${selectedDay}`;
-  }
+  //   this.setState({ selectedYear, selectedMonth, selectedDay });
+  //   this.setYear();
+  //   this.setMonth(selectedYear);
+  //   this.setDay(selectedYear, selectedMonth);
+  //   this.selectedDateValue = `${selectedYear}-${selectedMonth}-${selectedDay}`;
+  // }
 
   setYear() {
     let year = [];
     for (let i = this.minYear; i <= this.maxYear; i++) {
       year.push(i.toString());
     }
-    this.setState({ year });
+    return year;
   }
 
   setMonth(year) {
@@ -124,7 +118,7 @@ class DatePicker extends Component {
       const str = paddingLeft(i, 2);
       month.push(str);
     }
-    this.setState({ month });
+    return month;
   }
 
   setDay(year, month) {
@@ -153,7 +147,7 @@ class DatePicker extends Component {
       const str = paddingLeft(i, 2);
       day.push(str);
     }
-    this.setState({ day });
+    return day;
   }
 
   handleYearChange = (result) => {
@@ -187,7 +181,7 @@ class DatePicker extends Component {
         style={{ fontSize: this.props.fontSize }}
       >
         <div className={styles.header}>
-          <button onClick={this.props.onToggle}>取消</button>
+          <button onClick={this.props.onCancel}>取消</button>
           <h3>选择日期</h3>
           <button
             onClick={() => {
